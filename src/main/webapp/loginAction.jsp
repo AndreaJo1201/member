@@ -41,19 +41,17 @@
 	if(rs.next()) {
 		//로그인 성공
 		tagetPage = "/memberIndex.jsp?&msg=";
+		msg = "로그인 성공";
 		
 		//로그인 성공했다는 값을 저장 -> session
-		msg = "로그인 성공";
 		session.setAttribute("loginMemberId", rs.getString("member_id"));
+		// Object loginMemberId = rs.getString("memberId"); // 다형성 +
+		//(String)(session.getAttribute("loginMaemberId"));
 		
 	}
 	
 	rs.close();
 	stmt.close();
-	conn.close();
-	response.sendRedirect(request.getContextPath()+"/memberIndex.jsp");
-
-	
-	
+	conn.close();	
 	response.sendRedirect(request.getContextPath()+tagetPage+URLEncoder.encode(msg,"UTF-8"));
 %>

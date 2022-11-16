@@ -12,11 +12,13 @@
 		String msg = request.getParameter("msg");
 		out.println("<script>alert('"+msg+"');</script>");
 	}
-	
 %>
 
 <%
-
+	//1. 로그인이 되어있을경우 접근불가
+	if(session.getAttribute("loginMemberId") != null) {
+		response.sendRedirect(request.getContextPath()+"/memberIndex.jsp");
+	}
 %>
 
 <!DOCTYPE html>

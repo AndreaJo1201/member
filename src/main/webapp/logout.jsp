@@ -2,17 +2,6 @@
 <%request.setCharacterEncoding("UTF-8"); %>
 
 <%
-
+	session.invalidate(); // 세션 삭제 후 새로 생성하기
+	response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 %>
-
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<title>Insert title here</title>
-	</head>
-
-	<body>
-		
-	</body>
-</html>
