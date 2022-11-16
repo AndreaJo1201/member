@@ -1,20 +1,16 @@
+<%@page import="java.net.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%request.setCharacterEncoding("UTF-8"); %>
-<%@ page import="vo.*" %>
-<%@ page import="java.util.*" %>
 <%@ page import="java.sql.*" %>
-<%@ page import="java.net.*" %>
+<%@ page import = "vo.*" %>
+<%@ page import ="java.util.*" %>
+
 <%
-	
 	if(request.getParameter("msg") != null) {
 		String msg = request.getParameter("msg");
 		out.println("<script>alert('"+msg+"');</script>");
 	}
-	
-%>
 
-<%
-	//1.
 	if(session.getAttribute("loginMemberId") == null) {
 		//로그인을 안하고 페이지로 강제 접속시
 		String msg = "비 정상적인 접속입니다.";
@@ -22,6 +18,9 @@
 		return;
 	}
 
+%>
+
+<%
 	String Driver = "org.mariadb.jdbc.Driver";
 	Class.forName(Driver);
 	
@@ -30,30 +29,52 @@
 	String userPw = "java1234";
 	Connection conn = DriverManager.getConnection(url, user, userPw);
 	
-	String sql = "SELECT member_name memberName FROM member WHERE member_id LIKE ?";
+	String sql = "SELECT member_id memberId, member_name memberName FROM member WHERE member_id LIKE ?";
 	PreparedStatement stmt = conn.prepareStatement(sql);
-	stmt.setString(1, (String)(session.getAttribute("loginMemberId")));
+	stmt.setString(1,(String)(session.getAttribute("loginMemberId")));
+	
 	ResultSet rs = stmt.executeQuery();
 	
-	Member member = new Member();
+	Member member = null;
 	
-	if(rs.next()) {
+	if(rs.next()){
+		member = new Member();
+		member.memberId = rs.getString("memberId");
 		member.memberName = rs.getString("memberName");
 	}
+	
+
 %>
 
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
+		<title>회원 탈퇴</title>
 	</head>
 
 	<body>
-		<div><%=(String)(session.getAttribute("loginMemberId"))+"<--id / name -->"+member.memberName%>님 반갑습니다.</div>
-		<h1>멤버 페이지 입니다.</h1>
-		<a href="<%=request.getContextPath()%>/memberOne.jsp">My Page</a>
-		<a href="<%=request.getContextPath()%>/logout.jsp">Logout</a>
-		<a href="<%=request.getContextPath()%>/delete/deleteMemberForm.jsp">회원탈퇴</a>
+		<h1>회원정보 탈퇴</h1>
+		
+		<form action="<%=request.getContextPath()%>/delete/deleteMemberAction.jsp" method="post">
+			<table>
+				<tr>
+					<td>ID</td>
+					<td><input type="text" name="memberId" value="<%=member.memberId %>" readonly="readonly"></td>
+				</tr>
+				
+				<tr>
+					<td>이름</td>
+					<td><input type="text" name="memberName" value="<%=member.memberName %>" readonly="readonly"></td>
+				</tr>
+				
+				<tr>
+					<td>비밀번호</td>
+					<td><input type="password" name="memberPw" value="" placeholder="비밀번호 입력"></td>
+				</tr>
+			</table>
+			<button type="submit">탈퇴</button>
+		
+		</form>
 	</body>
 </html>

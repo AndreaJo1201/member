@@ -30,7 +30,7 @@
 	<body>
 		<h1>회원가입</h1>
 		
-		<form action="<%=request.getContextPath()%>/insertMemberAction.jsp" method="post">
+		<form action="<%=request.getContextPath()%>/insert/insertMemberAction.jsp" method="post">
 			<table>
 				<tr>
 					<td>ID</td>

@@ -49,7 +49,7 @@
 		</form>
 		
 		<div>
-			<a href="<%=request.getContextPath()%>/insertMemberForm.jsp">회원가입</a>
+			<a href="<%=request.getContextPath()%>/insert/insertMemberForm.jsp">회원가입</a>
 		</div>
 		
 		

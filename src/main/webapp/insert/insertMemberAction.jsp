@@ -17,7 +17,7 @@
 		request.getParameter("memberPw")==null||
 		request.getParameter("memberPw").equals("")){
 			String msg = "빈칸입력";
-			response.sendRedirect(request.getContextPath()+"/insertMemberForm.jsp?&msg="+URLEncoder.encode(msg,"UTF-8"));
+			response.sendRedirect(request.getContextPath()+"/insert/insertMemberForm.jsp?&msg="+URLEncoder.encode(msg,"UTF-8"));
 		return;
 	}
 	
@@ -35,7 +35,7 @@
 	ResultSet rs = stmt.executeQuery();
 	if(rs.next()){
 		String msg = "id 중복, 다른 id 사용";
-		response.sendRedirect(request.getContextPath()+"/insertMemberForm.jsp?&msg="+URLEncoder.encode(msg,"UTF-8"));
+		response.sendRedirect(request.getContextPath()+"/insert/insertMemberForm.jsp?&msg="+URLEncoder.encode(msg,"UTF-8"));
 		
 		rs.close();
 		stmt.close();
