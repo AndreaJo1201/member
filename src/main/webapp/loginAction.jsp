@@ -34,20 +34,26 @@
 	
 	ResultSet rs = stmt.executeQuery();
 	
-	String msg = null;
-	String result = null;
+	String msg = "로그인 실패";
+	
+	String tagetPage = "/loginForm.jsp?&msg=";
 	
 	if(rs.next()) {
-			msg = "로그인 성공";
-			result = "success";
-	
-		if(result.equals("success")) {
-			session.setAttribute("result","success");
-		}
-	} else {
-		msg ="로그인 실패";
+		//로그인 성공
+		tagetPage = "/memberIndex.jsp?&msg=";
+		
+		//로그인 성공했다는 값을 저장 -> session
+		msg = "로그인 성공";
+		session.setAttribute("loginMemberId", rs.getString("member_id"));
+		
 	}
 	
+	rs.close();
+	stmt.close();
+	conn.close();
+	response.sendRedirect(request.getContextPath()+"/memberIndex.jsp");
+
 	
-	response.sendRedirect(request.getContextPath()+"/loginCheck.jsp?&msg="+URLEncoder.encode(msg,"UTF-8"));
+	
+	response.sendRedirect(request.getContextPath()+tagetPage+URLEncoder.encode(msg,"UTF-8"));
 %>
