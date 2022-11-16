@@ -14,7 +14,8 @@
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp?&msg="+URLEncoder.encode(msg,"UTF-8"));
 	return;
 	}
-
+	
+	Member member = new Member();
 	String memberId = request.getParameter("memberId");
 	String memberPw = request.getParameter("memberPw");
 	
@@ -26,7 +27,7 @@
 	String userPw = "java1234";
 	Connection conn = DriverManager.getConnection(url, user, userPw);
 	
-	String sql = "SELECT * FROM MEMBER WHERE member_id=? AND member_pw=PASSWORD(?)";
+	String sql = "SELECT member_id FROM MEMBER WHERE member_id=? AND member_pw=PASSWORD(?)";
 	PreparedStatement stmt = conn.prepareStatement(sql);
 	stmt.setString(1,memberId);
 	stmt.setString(2,memberPw);
