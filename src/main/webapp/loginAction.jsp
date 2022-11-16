@@ -6,6 +6,15 @@
 <%@page import="java.net.*"%>
 
 <%
+	if(request.getParameter("memberId")==null||
+	request.getParameter("memberId").equals("")||
+	request.getParameter("memberPw")==null||
+	request.getParameter("memberPw").equals("")){
+		String msg = "빈칸입력";
+		response.sendRedirect(request.getContextPath()+"/loginForm.jsp?&msg="+URLEncoder.encode(msg,"UTF-8"));
+	return;
+	}
+
 	String memberId = request.getParameter("memberId");
 	String memberPw = request.getParameter("memberPw");
 	
