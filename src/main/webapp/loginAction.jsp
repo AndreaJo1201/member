@@ -38,7 +38,7 @@
 	
 	String tagetPage = "/loginForm.jsp?&msg=";
 	
-	if(rs.next()) {
+	if(rs.next()) { 
 		//로그인 성공
 		tagetPage = "/memberIndex.jsp?&msg=";
 		msg = "로그인 성공";
